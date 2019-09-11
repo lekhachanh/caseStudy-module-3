@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Customer} from '../Customer';
 import {CustomerService} from '../customer.service';
 import {Router} from '@angular/router';

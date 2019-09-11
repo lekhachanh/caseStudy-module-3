@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerService} from '../customer.service';
 import {Customer} from '../Customer';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 @Component({
   selector: 'app-edit-customer',
@@ -9,23 +10,28 @@ import {Customer} from '../Customer';
 })
 export class EditCustomerComponent implements OnInit {
   message: string;
-  @Input() customer: Customer;
-  constructor(private customerService: CustomerService) { }
+  customer: Customer;
+  constructor(private customerService: CustomerService, private routes: ActivatedRoute, private  router: Router) { }
 
   ngOnInit() {
+    this.routes.paramMap.subscribe((param: ParamMap) => {
+      const id = parseInt(param.get('id'), 10);
+      this.customerService.getDetail(id).subscribe(next => {
+        this.customer = next;
+      }, error => {
+        this.message = 'can not retrieve customer detail. ' + error;
+      });
+    });
   }
 
   editCustomer(customerForm) {
-    const id = customerForm.value.id;
-    const { firstName, lastName } = customerForm.value;
-    const customer = {
-      firstName,
-      lastName
-    };
-    this.customerService.edit(id, customer).subscribe( () => {
-      this.message = 'Successful';
+    this.customerService.edit(this.customer.id, customerForm.value).subscribe(next => {
+      this.message = 'update successful';
     }, error => {
-      this.message = 'updated fail';
+      this.message = 'update fail!';
     });
+  }
+  backCM() {
+    this.router.navigate(['customer-management']);
   }
 }
