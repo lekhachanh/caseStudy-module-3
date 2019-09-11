@@ -1,6 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Customer} from '../Customer';
 import {CustomerService} from '../customer.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-customer-management',
@@ -9,10 +10,10 @@ import {CustomerService} from '../customer.service';
 })
 export class CustomerManagementComponent implements OnInit {
   customers: Customer[];
-  @Output() customerClick = new EventEmitter<Customer>();
+  @Input() customer: Customer;
   message: string;
 
-  constructor(private customerService: CustomerService) {
+  constructor(private customerService: CustomerService, private router: Router) {
   }
 
   ngOnInit() {
@@ -20,16 +21,20 @@ export class CustomerManagementComponent implements OnInit {
   }
 
   getListCustomer() {
-    const listCustomer = this.customerService.getList();
-    listCustomer.subscribe(newList => {
+    const updateCustomer = this.customerService.getList();
+    updateCustomer.subscribe(newList => {
       this.customers = newList;
-    }, error => this.message = error.message);
+    }, error => {
+      console.log('error');
+      this.message = error.message;
+    });
   }
-  selectCustomer(customer: Customer) {
-    this.customerClick.emit(customer);
+  editCustomer(id: number) {
+    this.router.navigate(['/edit', id]);
   }
+
   deleteCustomer(id: number) {
-    this.customerService.delete(id).subscribe( () => {
+    this.customerService.delete(id).subscribe(() => {
       this.message = 'Successfully deleted';
       this.getListCustomer();
     }, error => {

@@ -19,4 +19,4 @@ export class CreateCustomerComponent implements OnInit {
       this.message = 'Error when creating customer';
     });
   }
- }
+}

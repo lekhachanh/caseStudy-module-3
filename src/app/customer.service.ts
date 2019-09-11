@@ -33,6 +33,9 @@ export class CustomerService {
     return this.http.delete(url);
   }
 
-
+  edit(id: number , customer: Customer): Observable<Customer> {
+    const url = this.apiUrl + '/customers/' + id;
+    return this.http.put<Customer>(url, customer);
+  }
 
 }
