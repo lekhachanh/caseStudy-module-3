@@ -1,32 +1,70 @@
-
 <header class="row">
   <div class="head col-sm-9">
     <h1>Customer Management</h1>
     <h5>Control every things you want</h5>
   </div>
   <div class="col-sm-3">
+    <a [routerLink]="['login']" class="btn btn-outline-primary" style="margin-right: 5px">Login</a>
+    <a [routerLink]="['register']" class="btn btn-outline-primary" >Register</a>
   </div>
 </header>
-<nav>
-<ul class="nav">
-  <li class="nav-item">
-    <a class="nav-link active btn btn-primary" href="/" style="margin-left: 0.5rem">Home</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link btn btn-primary" [routerLink]="['customer-management']" style="margin-left: 0.5rem">Customer Management</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link btn btn-primary" [routerLink]="['register']" style="margin-left: 0.5rem">Register</a>
-  </li>
-  <li>
-    <a class="nav-link btn btn-primary" [routerLink]="['login']" style="margin-left: 0.5rem">Login</a>
-  </li>
-</ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Customer Management</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li ngbDropdown class="nav-item dropdown">
+        <a ngbDropdownToggle class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
 </nav>
-<div class="container" style="height: auto">
+<div class="container-fluid" style="height: auto">
   <hr>
-  <router-outlet></router-outlet>
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">Customer Management</div>
+        <div class="list-group list-group-flush">
+          <a [routerLink]="['customer-list']" class="list-group-item list-group-item-action bg-light">Customer List</a>
+          <a [routerLink]="['/','create-customer']" class="list-group-item list-group-item-action bg-light">Create new
+            customer</a>
+<!--          <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>-->
+<!--          <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>-->
+<!--          <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>-->
+<!--          <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>-->
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-9">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
 </div>
-<footer >
+<footer>
   <p style="text-align: center; color: #37c1ff">Free to connect </p>
 </footer>

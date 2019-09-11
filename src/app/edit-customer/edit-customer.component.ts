@@ -22,16 +22,18 @@ export class EditCustomerComponent implements OnInit {
         this.message = 'can not retrieve customer detail. ' + error;
       });
     });
+    console.log(this.customer);
   }
 
   editCustomer(customerForm) {
     this.customerService.edit(this.customer.id, customerForm.value).subscribe(next => {
+      console.log(customerForm.value);
       this.message = 'update successful';
     }, error => {
       this.message = 'update fail!';
     });
   }
   backCM() {
-    this.router.navigate(['customer-management']);
+    this.router.navigate(['customer-list']);
   }
 }
